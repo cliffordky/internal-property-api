@@ -4,6 +4,7 @@
     {
         public Guid Id { get; set; }
         public Guid ConsumerId { get; set; }
+        public Guid SubscriberId { get; set; }
         public string PhysicalAddress { get; set; }
         public string TitleDeedNumber { get; set; }
         public string ErfNumber { get; set; }

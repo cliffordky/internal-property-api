@@ -30,6 +30,7 @@ namespace Api.Controllers
                 var property = new Core.Models.Property(
                         Guid.NewGuid(),
                         request.ConsumerId,
+                        request.SubscriberId,
                         request.PhysicalAddress,
                         request.TitleDeedNumber,
                         request.ErfNumber,
@@ -53,6 +54,7 @@ namespace Api.Controllers
                 {
                     Id = property.Id,
                     ConsumerId = property.ConsumerId,
+                    SubscriberId = property.SubscriberId,
                     PhysicalAddress = property.PhysicalAddress,
                     TitleDeedNumber = property.TitleDeedNumber,
                     ErfNumber = property.ErfNumber,
@@ -88,6 +90,7 @@ namespace Api.Controllers
                     {
                         Id = x.Id,
                         ConsumerId = x.ConsumerId,
+                        SubscriberId = x.SubscriberId,
                         PhysicalAddress = x.PhysicalAddress,
                         TitleDeedNumber = x.TitleDeedNumber,
                         ErfNumber = x.ErfNumber,

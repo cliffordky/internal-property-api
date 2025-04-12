@@ -3,6 +3,7 @@
     public class PropertyRequest
     {
         public Guid ConsumerId { get; set; }
+        public Guid SubscriberId { get; set; }
         public string PhysicalAddress { get; set; }
         public string TitleDeedNumber { get; set; }
         public string ErfNumber { get; set; }
@@ -14,7 +15,7 @@
         public decimal BondAmount { get; set; }
         public int PropertyTypeId { get; set; }
 
-        public string ISOA3CountryCode { get; set; } 
+        public string ISOA3CountryCode { get; set; }
         public string ISOA3CurrencyCode { get; set; }
         public DateTimeOffset RecordDate { get; set; }
     }
