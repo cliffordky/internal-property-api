@@ -27,6 +27,29 @@ namespace Api.Controllers
         {
             try
             {
+                string hash = Core.Encryption.Hash.GetHashString(request.ConsumerId.ToString() +
+                    request.SubscriberId.ToString() +
+                    request.PhysicalAddress +
+                    request.TitleDeedNumber +
+                    request.ErfNumber +
+                    request.Size +
+                    request.PurchaseDate.ToString() +
+                    request.PurchasePrice.ToString() +
+                    request.BondHolderName.ToString() +
+                    request.BondAccountNumber +
+                    request.BondAmount.ToString() +
+                    request.PropertyTypeCode.ToString() +
+                    request.ISOA3CountryCode +
+                    request.ISOA3CurrencyCode +
+                    request.RecordDate);
+
+                await using var session = _store.LightweightSession();
+                var existing = await session.Query<Core.Models.Property>().SingleOrDefaultAsync(x => x.Hash == hash);
+                if (existing != null)
+                {
+                    return Result<Models.v1.PropertyResponse>.Error("Property already exists");
+                }
+
                 var property = new Core.Models.Property(
                         Guid.NewGuid(),
                         request.ConsumerId,
@@ -40,13 +63,13 @@ namespace Api.Controllers
                         request.BondHolderName.ToString(),
                         request.BondAccountNumber,
                         request.BondAmount.ToString(),
-                        request.PropertyTypeId.ToString(),
+                        request.PropertyTypeCode.ToString(),
                         request.ISOA3CountryCode,
                         request.ISOA3CurrencyCode,
-                        request.RecordDate
+                        request.RecordDate,
+                        hash
                     );
 
-                await using var session = _store.LightweightSession();
                 session.Store(property);
                 await session.SaveChangesAsync();
 
@@ -64,7 +87,7 @@ namespace Api.Controllers
                     BondHolderName = property.BondHolderName,
                     BondAccountNumber = property.BondAccountNumber,
                     BondAmount = Decimal.Parse(property.BondAmount),
-                    PropertyTypeId = Int32.Parse(property.PropertyTypeId),
+                    PropertyTypeCode = property.PropertyTypeCode,
                     ISOA3CountryCode = property.ISOA3CountryCode,
                     ISOA3CurrencyCode = property.ISOA3CurrencyCode,
                     RecordDate = property.RecordDate
@@ -100,7 +123,7 @@ namespace Api.Controllers
                         BondHolderName = x.BondHolderName,
                         BondAccountNumber = x.BondAccountNumber,
                         BondAmount = Decimal.Parse(x.BondAmount),
-                        PropertyTypeId = Int32.Parse(x.PropertyTypeId),
+                        PropertyTypeCode = x.PropertyTypeCode,
                         ISOA3CountryCode = x.ISOA3CountryCode,
                         ISOA3CurrencyCode = x.ISOA3CurrencyCode,
                         RecordDate = x.RecordDate

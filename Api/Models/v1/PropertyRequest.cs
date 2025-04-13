@@ -13,7 +13,7 @@
         public string BondHolderName { get; set; }
         public string BondAccountNumber { get; set; }
         public decimal BondAmount { get; set; }
-        public int PropertyTypeId { get; set; }
+        public string PropertyTypeCode { get; set; }
 
         public string ISOA3CountryCode { get; set; }
         public string ISOA3CurrencyCode { get; set; }

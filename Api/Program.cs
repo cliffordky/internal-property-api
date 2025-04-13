@@ -57,7 +57,7 @@ namespace Api
                     .AddEncryptionRuleForProtectedInformation(x => x.BondHolderName)
                     .AddEncryptionRuleForProtectedInformation(x => x.BondAccountNumber)
                     .AddEncryptionRuleForProtectedInformation(x => x.BondAmount)
-                    .AddEncryptionRuleForProtectedInformation(x => x.PropertyTypeId)
+                    .AddEncryptionRuleForProtectedInformation(x => x.PropertyTypeCode)
                     .AddEncryptionRuleForProtectedInformation(x => x.PurchaseDate);
                     //.AddEncryptionRuleForProtectedInformation(x => x.ISOA3CurrencyCode)
                     //.AddEncryptionRuleForProtectedInformation(x => x.ISOA3CountryCode);
