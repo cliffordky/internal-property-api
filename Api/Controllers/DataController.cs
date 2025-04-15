@@ -2,6 +2,7 @@
 using Ardalis.Result.AspNetCore;
 using Coravel.Cache.Interfaces;
 using Marten;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -21,6 +22,7 @@ namespace Api.Controllers
             _cache = cache;
         }
 
+        [Authorize("write")]
         [TranslateResultToActionResult]
         [HttpPost("property")]
         public async Task<Result<Models.v1.PropertyResponse>> AddProperty(Models.v1.PropertyRequest request)
@@ -99,6 +101,7 @@ namespace Api.Controllers
             }
         }
 
+        [Authorize("read")]
         [TranslateResultToActionResult]
         [HttpGet("properties")]
         public async Task<Result<List<Models.v1.PropertyResponse>>> GetPropertiesForConsumer(Guid ConsumerId)
