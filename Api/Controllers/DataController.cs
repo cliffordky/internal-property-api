@@ -65,9 +65,9 @@ namespace Api.Controllers
                         request.BondHolderName.ToString(),
                         request.BondAccountNumber,
                         request.BondAmount.ToString(),
-                        request.PropertyTypeCode.ToString(),
                         request.ISOA3CountryCode,
                         request.ISOA3CurrencyCode,
+                        request.PropertyTypeCode,                     
                         request.RecordDate,
                         hash
                     );
