@@ -16,8 +16,8 @@ namespace Api
             var builder = WebApplication.CreateBuilder(args);
 
             //Add JWT authentication supporting the "Client Credentials" flow
-            builder.Services.AddClientCredentialsAuthentication(builder.Configuration);
-            builder.Services.AddClientCredentialsAuthorization(builder.Configuration);
+            builder.Services.AddInternalAuthentication(builder.Configuration);
+            builder.Services.AddInternalAuthorization(builder.Configuration);
 
             builder.Services.AddControllers();
 

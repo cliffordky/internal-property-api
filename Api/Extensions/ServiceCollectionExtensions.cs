@@ -39,10 +39,7 @@ namespace dordle.common.service.Extensions
                     {
                         ClientCredentials = new OpenApiOAuthFlow
                         {
-
-                            //AuthorizationUrl = new Uri(authenticationOptions.AuthorizationUrl),
-                            TokenUrl = new Uri(authenticationOptions.TokenUrl),
-                            //Scopes = authenticationOptions.Scopes.Select(s => new KeyValuePair<string, string>(s, s)).ToDictionary()
+                            TokenUrl = new Uri(authenticationOptions.TokenUrl)
                         }
                     }
                 });
@@ -78,7 +75,7 @@ namespace dordle.common.service.Extensions
         /// <param name="configuration"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static IServiceCollection AddClientCredentialsAuthentication(this IServiceCollection services, IConfiguration configuration, Action<IServiceCollection> action = null)
+        public static IServiceCollection AddInternalAuthentication(this IServiceCollection services, IConfiguration configuration, Action<IServiceCollection> action = null)
         {
             var authenticationOptions = configuration.GetSection(AuthenticationOptions.ConfigKey).Get<AuthenticationOptions>()!;
 
@@ -108,7 +105,7 @@ namespace dordle.common.service.Extensions
         /// <param name="configuration"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static IServiceCollection AddClientCredentialsAuthorization(this IServiceCollection services, IConfiguration configuration, Action<IServiceCollection> action = null)
+        public static IServiceCollection AddInternalAuthorization(this IServiceCollection services, IConfiguration configuration, Action<IServiceCollection> action = null)
         {
             var authenticationOptions = configuration.GetSection(AuthenticationOptions.ConfigKey).Get<AuthenticationOptions>()!;
 
@@ -117,12 +114,12 @@ namespace dordle.common.service.Extensions
                 options.AddPolicy("read", policy =>
                 {
                     //policy.RequireAuthenticatedUser();
-                    policy.Requirements.Add(new HasScopeRequirement($"dordle:{authenticationOptions.ProtectedEntity}", authenticationOptions.ValidIssuer));
+                    policy.Requirements.Add(new HasScopeRequirement($"dordle:{authenticationOptions.ScopedEntity}", authenticationOptions.ValidIssuer));
                 });
                 options.AddPolicy("write", policy =>
                 {
                     //policy.RequireAuthenticatedUser();
-                    policy.Requirements.Add(new HasScopeRequirement($"dordle:{authenticationOptions.ProtectedEntity}:write", authenticationOptions.ValidIssuer));
+                    policy.Requirements.Add(new HasScopeRequirement($"dordle:{authenticationOptions.ScopedEntity}:write", authenticationOptions.ValidIssuer));
                 });
             });
 
