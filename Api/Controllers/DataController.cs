@@ -22,7 +22,8 @@ namespace Api.Controllers
             _cache = cache;
         }
 
-        [Authorize("write")]
+        //[Authorize("write")]
+        [Authorize]
         [TranslateResultToActionResult]
         [HttpPost("property")]
         public async Task<Result<Models.v1.PropertyResponse>> AddProperty(Models.v1.PropertyRequest request)
@@ -101,7 +102,8 @@ namespace Api.Controllers
             }
         }
 
-        [Authorize("read")]
+        //[Authorize("read")]
+        [Authorize]
         [TranslateResultToActionResult]
         [HttpGet("properties")]
         public async Task<Result<List<Models.v1.PropertyResponse>>> GetPropertiesForConsumer(Guid ConsumerId)
