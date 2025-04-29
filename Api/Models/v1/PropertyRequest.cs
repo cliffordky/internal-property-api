@@ -8,7 +8,7 @@
         public string TitleDeedNumber { get; set; }
         public string ErfNumber { get; set; }
         public string Size { get; set; }
-        public DateTime PurchaseDate { get; set; }
+        public DateOnly PurchaseDate { get; set; }
         public decimal PurchasePrice { get; set; }
         public string BondHolderName { get; set; }
         public string BondAccountNumber { get; set; }
